@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pharmacy Website</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!--(2)<style>
+  .section-title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  body {
+    font-family: 'Poppins', Arial, sans-serif;
+  }
+
+  .hero-text h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+</style>-->
+
+<style>
+/* Feedback Form Button */
+.feedback-btn {
+  background-color: #0b5a0b;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.feedback-btn:hover {
+  background-color: #094709;
+}
+</style>
+
+<!--(4)<style>
+#submitBtn {
+  background-color: #0b5a0b;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+#submitBtn:hover {
+  background-color: #084208;
+}
+</style>--->
+
+<!--(8)<style>
+/* Christmas & New Year Offers - Internal CSS */
+.festive-section {
+  background: linear-gradient(135deg, #e8f5e9, #ffffff);
+  padding: 50px 20px;
+  margin: 60px auto;
+  max-width: 900px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.festive-section h2 {
+  color: #0b5a0b;
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.festive-text {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.offer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 25px 0;
+}
+
+.offer-list li {
+  font-size: 17px;
+  margin: 10px 0;
+  color: #1b5e20;
+}
+
+.festive-note {
+  font-size: 16px;
+  color: #444;
+  font-weight: bold;
+}
+</style>--->
+
+
+<style>
+#submitBtn {
+  background-color: #0b5a0b;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+#submitBtn:hover {
+  background-color: #084208;
+}
+</style>
+
+</head>
+
+<body>
+    <header>
+    <nav class="navbar">
+      <div class="logo-box">
+    <span class="logo-main">GuptaCare</span>
+    <span class="logo-sub">Pharmacy</span>
+</div>
+<ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#products">Products</a></li>
+
+    <li><a href="#doctors">Doctors</a></li>
+    <li><a href="#contact">Contact</a></li>
+
+    <li class="cart-icon">
+        <a href="cart.php" style="font-size:20px;">
+            🛒 <span id="cartCount">0</span>
+        </a>
+    </li>
+    
+</ul>
+
+    </nav>
+</header>
+
+  <section class="hero" id="home">
+
+    <div class="hero-text">
+        <h1>Your Trusted Neighborhood Pharmacy</h1>
+        <p>Gupta Medical provides genuine medicines, wholesale supply, and doctor consultations all under one roof.</p>
+        <div class="hero-buttons">
+            <div class="btn-group">
+    <button class="btn shop-now-btn"
+        onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })">
+    Shop Now
+</button>
+
+    <button class="btn book-btn" onclick="document.getElementById('doctors').scrollIntoView({ behavior: 'smooth' })">
+    Book Appointment
+</button>
+
+</div>
+
+</div>
+
+
+
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="images/pharmacy.jpg" alt="Pharmacy Image">
+    </div>
+</section>
+<section class="services">
+    <div class="service-card">
+        <h3>Retail Pharmacy</h3>
+        <p>All types of medicines, health supplements, and OTC products.</p>
+    </div>
+
+    <div class="service-card">
+        <h3>Wholesale Supply</h3>
+        <p>Bulk delivery for clinics, hospitals, and other pharmacies.</p>
+    </div>
+
+    <div class="service-card">
+        <h3>Doctor Consultation</h3>
+        <p>Experienced doctors available inside the shop for patients.</p>
+    </div>
+</section>
+<!-- SEARCH + CATEGORY SECTION -->
+ <section id="products">
+
+<section class="search-section">
+
+    <input type="text" id="searchBox" placeholder="Search medicines..." class="search-input">
+
+    <div class="categories">
+        <button onclick="openCategory('Tablets')">Tablets</button>
+        <button onclick="openCategory('Syrups')">Syrups</button>
+        <button onclick="openCategory('First Aid')">First Aid</button>
+        <button onclick="openCategory('Vitamins')">Vitamins</button>
+        <button onclick="openCategory('Personal Care')">Personal Care</button>
+    </div>
+
+    <div id="noResultsMessage" class="no-results">No medicines found</div>
+
+    <div id="searchResults" class="product-grid"></div>
+
+</section>
+
+
+
+<section id="products" class="products-section">
+    <h2 class="section-title">Our Best-Selling Medicines</h2>
+
+    <div class="products-grid">
+
+        <!-- PRODUCT 1 -->
+        <div class="product-card">
+            <img src="images/med1.jpg" alt="Paracetamol 650mg">
+            <h3>Paracetamol 650mg</h3>
+            <p class="price">₹45</p>
+
+            <input type="number" id="p1" value="1" min="1">
+           <button onclick="addProductById(1)">
+    Add to Cart
+</button>
+
+        </div>
+
+        <!-- PRODUCT 2 -->
+        <div class="product-card">
+            <img src="images/med2.jpg" alt="Azithromycin 500mg">
+            <h3>Azithromycin 500mg</h3>
+            <p class="price">₹120</p>
+
+            <input type="number" id="p2" value="1" min="1">
+            <button onclick="addProductById(2)">
+    Add to Cart
+</button>
+
+        </div>
+
+        <!-- PRODUCT 3 -->
+        <div class="product-card">
+            <img src="images/med3.jpg" alt="Cough Syrup">
+            <h3>Cough Syrup 100ml</h3>
+            <p class="price">₹90</p>
+
+            <input type="number" id="p3" value="1" min="1">
+         <button onclick="addProductById(3)">
+    Add to Cart
+</button>
+
+        </div>
+
+    </div>
+</section>
+
+<!--(5)<button onclick="toggleDoctors()" class="btn-green">
+  Show / Hide Doctors
+</button>-->
+
+<!-- WRAPPER FOR FULL DOCTOR SECTION -->
+<section id="doctorsSection">
+
+  <section id="doctors" class="doctor-section">
+    <h2 class="section-title">Our Doctors</h2>
+  </section>
+
+  <div class="doctor-container">
+    <div class="doctor-card">
+      <img src="images/doctor1.jpg" alt="Doctor">
+      <h3>Dr. Rakesh Verma</h3>
+      <p>MBBS, MD (General Physician)</p>
+      <p>Doctor’s visiting hours: Monday & Friday (3:00 PM–7:00 PM)</p>
+      <button onclick="openAppointment()">Book Appointment</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="images/doctor2.jpg" alt="Doctor">
+      <h3>Dr. Sneha Sharma</h3>
+      <p>BDS (Dentist)</p>
+      <p>Doctor’s visiting hours: Thursday & Saturday (3:00 PM–7:00 PM)</p>
+      <button onclick="openAppointment()">Book Appointment</button>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- APPOINTMENT POPUP -->
+<div id="appointmentPopup" class="popup-overlay">
+    <div class="popup-box">
+        <h2>Book Appointment</h2>
+
+        <form action="appointment.php" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <input type="date" name="date" required>
+
+            <select name="doctor" required>
+                <option value="Dr. Rakesh Verma">Dr. Rakesh Verma</option>
+                <option value="Dr. Sneha Sharma">Dr. Sneha Sharma</option>
+            </select>
+
+            <button type="submit">Confirm Appointment</button>
+            <button type="button" onclick="closePopup()">Cancel</button>
+        </form>
+    </div>
+</div>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/script.js"></script>
+<script src="js/products.js"></script> <!-- make sure this file exists (see next step) -->
+
+<script>
+// open category -> stores choice and opens all_products page
+function openCategory(category) {
+  localStorage.setItem("selectedCategory", category);
+  window.location.href = "all_products.html";
+}
+
+// Hook search on home page to show filtered products on all_products.html
+document.getElementById('searchBox').addEventListener('keydown', function(e){
+  // If user presses Enter, go to all_products with the search query
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    localStorage.setItem('searchQuery', this.value.trim());
+    window.location.href = "all_products.html";
+  }
+});
+
+// Optional: live preview on home page (simple)
+document.getElementById('searchBox').addEventListener('input', function(){
+  // store typed value so all_products.html can read it immediately if user clicks a category or navigates
+  localStorage.setItem('searchQueryLive', this.value.trim());
+});
+</script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+
+<script>
+document.getElementById("searchBox").addEventListener("input", function () {
+
+    let query = this.value.trim().toLowerCase();
+    let results = searchProducts(query);
+
+    const resultsBox = document.getElementById("searchResults");
+    const noMsg = document.getElementById("noResultsMessage");
+
+    resultsBox.innerHTML = "";
+
+    if (results.length === 0) {
+        noMsg.style.display = "block";
+        return;
+    }
+
+    noMsg.style.display = "none";
+
+    results.forEach(p => {
+        resultsBox.innerHTML += `
+            <div class="product-card">
+                <img src="${p.image}" alt="${p.name}">
+                <h3>${p.name}</h3>
+                <p>₹${p.price}</p>
+              <button onclick="addProductById(${p.id})">
+    Add to Cart
+</button>
+
+
+
+            </div>
+        `;
+    });
+
+});
+
+function openCategory(category) {
+    const results = filterByCategory(category);
+    const resultsBox = document.getElementById("searchResults");
+    const noMsg = document.getElementById("noResultsMessage");
+
+    resultsBox.innerHTML = "";
+    noMsg.style.display = "none";
+
+    results.forEach(p => {
+        resultsBox.innerHTML += `
+            <div class="product-card">
+                <img src="${p.image}" alt="${p.name}">
+                <h3>${p.name}</h3>
+                <p>₹${p.price}</p>
+              <button onclick="addProductById(${p.id})">
+    Add to Cart
+</button>
+
+            </div>
+        `;
+    });
+}
+</script>
+<section id="contact" class="contact-section">
+    <h2 class="section-title">Contact Us</h2>
+
+    <div class="contact-wrapper">
+
+        <!-- Left Contact Box -->
+        <div class="contact-box">
+            <h3>Get in Touch</h3>
+
+            <p><span class="icon">📍</span> New Gupta Medical, Belda-721424</p>
+            <p><span class="icon">📞</span> +91 9641053939</p>
+            <p><span class="icon">📧</span> guptacarepharmacy@gmail.com</p>
+
+            <p style="margin-top:15px; font-weight:bold;">⏰ Opening Hours</p>
+            <p>Mon – Sun : <strong>7:00 AM – 10:00 PM</strong></p>
+        </div>
+
+        <!-- Right Form Box -->
+        <div class="contact-box">
+            <h3>Feedback Form</h3>
+
+      <!--3--> <form action="save_message.php" method="POST" onsubmit="return validateFeedback()">
+
+  <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+  <input type="text" id="phone" name="phone" placeholder="Phone Number" required>
+
+  <input type="email" id="email" name="email" placeholder="Email" required>
+
+  <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+
+  <button type="submit" class="feedback-btn">Send Message</button>
+</form>
+
+<p id="successMsg" style="display:none; color:green; font-weight:bold;">
+  Thank you! Your feedback has been saved successfully.
+</p>
+
+
+
+
+<!--(4)<form id="feedbackForm" >
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="tel" id="phone" placeholder="Phone Number" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <textarea id="message" placeholder="Your Message"></textarea>
+
+  <button type="button" id="submitBtn">Clear & Submit</button>
+
+  <p id="thankYouMsg" style="display:none; color:green; font-weight:bold;">
+    Thank you for your feedback!
+  </p>
+</form>--->
+
+
+        </div>
+
+    </div>
+</section>
+//3 <script>
+function validateFeedback() {
+    let phone = document.getElementById("phone").value.trim();
+    let email = document.getElementById("email").value.trim();
+
+    // Mobile number validation (10 digits)
+    let phonePattern = /^[0-9]{10}$/;
+
+    if (!phonePattern.test(phone)) {
+        alert("Please enter a valid 10-digit mobile number");
+        return false;
+    }
+
+    // Email validation (if entered)
+    if (email !== "") {
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid email address");
+            return false;
+        }
+    }
+
+    alert("Feedback submitted successfully!");
+    return true;
+}
+</script>
+
+<!---(4)<script>
+document.getElementById("submitBtn").addEventListener("click", function () {
+
+  // Clear form fields
+  document.getElementById("feedbackForm").reset();
+
+  // Show thank-you message
+  document.getElementById("thankYouMsg").style.display = "block";
+});--->
+
+<!--(5)<script>
+function toggleDoctors() {
+  const section = document.getElementById("doctorsSection");
+
+  if (section.style.display === "none") {
+    section.style.display = "block";
+  } else {
+    section.style.display = "none";
+  }
+}
+</script>--->
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("success") === "1") {
+    document.getElementById("successMsg").style.display = "block";
+
+    // remove success from URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+</script>
+
+
+<!-- (8)CHRISTMAS & NEW YEAR OFFERS SECTION -->
+<!-- <section id="festive-offers" class="festive-section">
+  <h2>🎄 Christmas & New Year Special Offers 🎉</h2>
+
+  <p class="festive-text">
+    Celebrate the festive season with exclusive discounts on medicines,
+    health supplements, and personal care products.
+  </p>
+
+  <ul class="offer-list">
+    <li>🎁 Flat 10% discount on orders above ₹1000</li>
+    <li>💊 Buy 2 Get 1 Free on selected vitamins</li>
+    <li>🩺 Free doctor consultation on New Year week</li>
+    <li>🚚 Free home delivery during festive days</li>
+  </ul>
+
+  <p class="festive-note">
+    Hurry! Offers valid till <strong>31st December</strong>.
+  </p>
+</section> -->
+
+
+
+
+
+

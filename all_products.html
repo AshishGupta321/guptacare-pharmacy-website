@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>All Medicines - GuptaCare Pharmacy</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .products-grid { display:flex; gap:24px; flex-wrap:wrap; justify-content:center; padding:30px; }
+    .product-card { width:250px; background:#fff; border-radius:10px; padding:18px; box-shadow:0 6px 18px rgba(0,0,0,0.06); text-align:center; }
+    .product-card img { width:100%; height:160px; object-fit:contain; }
+    .cat-title { text-align:center; color:darkgreen; margin-top:20px; font-size:22px; }
+  </style>
+</head>
+<body>
+
+<h2 class="cat-title" id="pageTitle">All Medicines</h2>
+
+<div style="text-align:center; margin:10px 0;">
+  <input id="searchInput" type="text" placeholder="Search medicines..." style="width:60%;padding:10px;border-radius:8px;border:1px solid #ddd;">
+</div>
+
+<div id="allProductsContainer" class="products-grid"></div>
+
+<script src="js/products.js"></script>
+<script>
+const container = document.getElementById('allProductsContainer');
+const titleEl = document.getElementById('pageTitle');
+const searchInput = document.getElementById('searchInput');
+
+function render(list){
+  container.innerHTML = '';
+  if(!list || list.length === 0){
+    container.innerHTML = '<p style="text-align:center;width:100%;">No products found.</p>';
+    return;
+  }
+  list.forEach(p => {
+    const html = `
+      <div class="product-card">
+        <img src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p style="color:green; font-weight:700">₹${p.price}</p>
+        <p style="font-size:13px;color:#555">${p.description || ''}</p>
+        <div style="margin-top:10px">
+          <input id="qty-${p.id}" type="number" value="1" min="1" style="width:60px;padding:6px;">
+          <button onclick="addProductById(${p.id})">
+ style="margin-left:8px;padding:8px 12px;border-radius:6px;background:#0b5a0b;color:#fff;border:none;cursor:pointer">Add to Cart</button>
+        </div>
+      </div>`;
+    container.insertAdjacentHTML('beforeend', html);
+  });
+}
+
+// Add to cart (uses localStorage cart format {name, price, quantity, image})
+function addToCart(id){
+  const p = allProducts.find(x => x.id === id);
+  if(!p) return alert('Product not found');
+  const qtyVal = parseInt(document.getElementById('qty-' + id).value) || 1;
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  // try merge by name
+  let existing = cart.find(i => i.name === p.name);
+  if(existing) existing.quantity = (existing.quantity || existing.qty || 1) + qtyVal;
+  else cart.push({ name: p.name, price: p.price, quantity: qtyVal, image: p.image });
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(p.name + ' added to cart');
+  // optional: update cart badge if you implemented it
+  if(window.updateCartCount) updateCartCount();
+}
+
+// On page load, check localStorage keys
+const cat = localStorage.getItem('selectedCategory');
+const searchQuery = localStorage.getItem('searchQuery') || localStorage.getItem('searchQueryLive') || '';
+if(cat){
+  titleEl.textContent = cat + " - Products";
+  render(filterByCategory(cat));
+  localStorage.removeItem('selectedCategory');
+} else if(searchQuery){
+  searchInput.value = searchQuery;
+  titleEl.textContent = 'Search results for "' + searchQuery + '"';
+  render(searchProducts(searchQuery));
+  localStorage.removeItem('searchQuery');
+  localStorage.removeItem('searchQueryLive');
+} else {
+  render(allProducts);
+}
+
+// Search box on this page
+searchInput.addEventListener('input', function(){
+  const q = this.value.trim();
+  if(!q) render(allProducts);
+  else render(searchProducts(q));
+});
+</script>
+
+</body>
+</html>
